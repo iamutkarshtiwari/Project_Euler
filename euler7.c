@@ -1,90 +1,34 @@
-#include<stdio.h>
-#include<math.h>
+#include <stdio.h>
 
-// Seive of Erosthenes
+#define limit 1500000 /*size of integers array*/
+#define PRIMES 1000000 /*size of primes array*/
 
+int main(){
+    int i,j,numbers[1000000];
+    int primes[1000000];
 
-int prime(int a)
-{
-    int factors=0;
-    int i;
-    
-    for(i=1;i<=a;i++)
-    {
-        if(a%i==0)
-            factors++;
+    /*fill the array with natural numbers*/
+    for (i=0;i<limit;i++){
+        numbers[i]=i+2;
     }
-    
-    if(factors==2)
-        return 1;
-    
-    
-    else
-        return 0;
-    
-}
-        
-        
-        
 
-
-int main()
-{
-
-int i,j,f;
-int sum1=0,sum2=0;
-int count=0;
-
-int array[1005];
-
-int index=0;
-
-i=3;
-array[0]=2;
-index++;
-count++;
-f=0;
-
-
-while(index<6)
-{
-    f=1;
-    for(j=0;j<index;j++)
-    {
-        if(i%array[j]==0)
-        {
-            f=0;
-            break;
+    /*sieve the non-primes*/
+    for (i=0;i<limit;i++){
+        if (numbers[i]!=-1){
+            for (j=2*numbers[i]-2;j<limit;j+=numbers[i])
+                numbers[j]=-1;
         }
     }
+
+    /*transfer the primes to their own array*/
+    j = 0;
+    for (i=0;i<limit && j<PRIMES;i++)
+        if (numbers[i]!=-1)
+            primes[j++] = numbers[i];
+
+    /*print*/
     
-    
-    i++;
-    if(f==0)
-     continue;
-     
-    //printf("%d\n",i);
-    
-    if(prime(i)==1)
-    {
-        array[index++]=i;
-        
-    }
-    
-    
-   // printf("hello\n");
-    
-    
-    
+        printf("%d\n",primes[10000]);
+
+return 0;
 }
-
-    
-    
-printf("%d\n",array[1]);
-    
-
-
-}
-
-
-
